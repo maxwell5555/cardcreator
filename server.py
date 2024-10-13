@@ -4,6 +4,16 @@ from http.server import BaseHTTPRequestHandler, HTTPServer
 from cardcreatorLib import Creator
 
 class SimpleHTTPRequestHandler(BaseHTTPRequestHandler):
+    def map_art(self, name):
+        # try:
+        #     # Attempt to retrieve the value
+        #     value = my_dict[name]
+        #     print(f"Value found: {value}")
+        # except KeyError:
+        #     # Handle the exception if the key is not found
+        #     print(f"KeyError: '{key_to_access}' not found in the dictionary.")
+        return "art/Giants_ring_of_little_folk_Cfallon.png"
+    
     def do_POST(self):
         # Parse the URL and query parameters
         parsed_url = urlparse(self.path)
@@ -13,12 +23,14 @@ class SimpleHTTPRequestHandler(BaseHTTPRequestHandler):
         content_length = int(self.headers['Content-Length'])
         post_data = self.rfile.read(content_length).decode('utf-8')
 
+        print(query_params)
+
         name = query_params['name']
         type = query_params['type']
         details = query_params['details']
         rarity = query_params['rarity']
         description = query_params['description']
-        art = query_params['art']
+        art = self.map_art(query_params['art'])
 
         creator = Creator("assets/FontA_Cinzel-Bold.otf","assets/FontB_CrimsonPro-VariableFont_wght.ttf","assets/Leyfarer_card_item_Template_v1.png",art)
         png = creator.generate_card(name, type, details, rarity, description) 
