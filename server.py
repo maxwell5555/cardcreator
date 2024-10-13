@@ -46,7 +46,7 @@ class SimpleHTTPRequestHandler(BaseHTTPRequestHandler):
         # Prepare response data with query parameters and body
         response_data = {
             "query_params": {key: value[0] for key, value in query_params.items()},
-            "body": png_data
+            "body": base64_png
         }
 
         # Respond with the query parameters and body as JSON
