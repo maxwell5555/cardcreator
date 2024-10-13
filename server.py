@@ -1,5 +1,6 @@
 import json
 import io
+import base64
 from urllib.parse import urlparse, parse_qs
 from http.server import BaseHTTPRequestHandler, HTTPServer
 from cardcreatorLib import Creator
@@ -39,6 +40,8 @@ class SimpleHTTPRequestHandler(BaseHTTPRequestHandler):
         output = io.BytesIO()
         png.save(output, format='PNG')
         png_data = output.getvalue()
+
+        base64_png = base64.b64encode(png_data).decode('utf-8')
 
         # Prepare response data with query parameters and body
         response_data = {
