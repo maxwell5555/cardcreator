@@ -1,4 +1,5 @@
 import json
+import io
 from urllib.parse import urlparse, parse_qs
 from http.server import BaseHTTPRequestHandler, HTTPServer
 from cardcreatorLib import Creator
@@ -34,17 +35,20 @@ class SimpleHTTPRequestHandler(BaseHTTPRequestHandler):
 
         creator = Creator("assets/FontA_Cinzel-Bold.otf","assets/FontB_CrimsonPro-VariableFont_wght.ttf","assets/Leyfarer_card_item_Template_v1.png",art)
         png = creator.generate_card(name, type, details, rarity, description) 
-        png.save("renders/test.png")
+        #png.save("renders/test.png")
+        output = io.BytesIO()
+        png.save(output, format='PNG')
+        png_data = output.getvalue()
 
         # Prepare response data with query parameters and body
         response_data = {
             "query_params": {key: value[0] for key, value in query_params.items()},
-            "body": post_data
+            "body": png_data
         }
 
         # Respond with the query parameters and body as JSON
         self.send_response(200)
-        self.send_header('Content-Type', 'application/json')
+        self.send_header('Content-Type', 'image/png')
         self.end_headers()
         self.wfile.write(json.dumps(response_data).encode('utf-8'))
 
