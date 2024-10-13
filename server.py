@@ -14,7 +14,7 @@ class SimpleHTTPRequestHandler(BaseHTTPRequestHandler):
         # except KeyError:
         #     # Handle the exception if the key is not found
         #     print(f"KeyError: '{key_to_access}' not found in the dictionary.")
-        return "art/Giants_ring_of_little_folk_Cfallon.png"
+        return "art/Leyfarer_card_item_Placeholder_Art_v1.png"
     
     def do_POST(self):
         # Parse the URL and query parameters
