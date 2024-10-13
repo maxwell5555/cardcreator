@@ -23,7 +23,7 @@ class SimpleHTTPRequestHandler(BaseHTTPRequestHandler):
         content_length = int(self.headers['Content-Length'])
         post_data = self.rfile.read(content_length).decode('utf-8')
 
-        print(query_params)
+        print(post_data)
 
         name = query_params['name']
         type = query_params['type']
