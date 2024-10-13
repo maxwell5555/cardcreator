@@ -25,12 +25,12 @@ class SimpleHTTPRequestHandler(BaseHTTPRequestHandler):
 
         print(post_data)
 
-        name = query_params['name']
-        type = query_params['type']
-        details = query_params['details']
-        rarity = query_params['rarity']
-        description = query_params['description']
-        art = self.map_art(query_params['art'])
+        name = post_data['name']
+        type = post_data['type']
+        details = post_data['details']
+        rarity = post_data['rarity']
+        description = post_data['description']
+        art = self.map_art(post_data['art'])
 
         creator = Creator("assets/FontA_Cinzel-Bold.otf","assets/FontB_CrimsonPro-VariableFont_wght.ttf","assets/Leyfarer_card_item_Template_v1.png",art)
         png = creator.generate_card(name, type, details, rarity, description) 
